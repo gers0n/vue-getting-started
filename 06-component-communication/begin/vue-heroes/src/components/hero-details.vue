@@ -8,14 +8,16 @@
         <div class="field">
           <label class="label" for="id">id</label>
           <label class="input" name="id" readonly>
-            {{
-            heroCloned.id
-            }}
+            {{ heroCloned.id }}
           </label>
         </div>
         <div class="field">
           <label class="label" for="firstName">first name</label>
-          <input class="input" name="firstName" v-model="heroCloned.firstName" />
+          <input
+            class="input"
+            name="firstName"
+            v-model="heroCloned.firstName"
+          />
         </div>
         <div class="field">
           <label class="label" for="lastName">last name</label>
@@ -23,11 +25,20 @@
         </div>
         <div class="field">
           <label class="label" for="description">description</label>
-          <input class="input" name="description" v-model="heroCloned.description" />
+          <input
+            class="input"
+            name="description"
+            v-model="heroCloned.description"
+          />
         </div>
         <div class="field">
           <label class="label" for="originDate">origin date</label>
-          <input type="date" class="input" id="originDate" v-model="heroCloned.originDate" />
+          <input
+            type="date"
+            class="input"
+            id="originDate"
+            v-model="heroCloned.originDate"
+          />
           <p class="comment">
             My origin story began on
             {{ heroCloned.originDate | shortDate }}
@@ -35,14 +46,17 @@
         </div>
         <div class="field">
           <label class="label" for="capeCounter">cape counter</label>
-          <input class="input" name="capeCounter" type="number" v-model="heroCloned.capeCounter" />
+          <input
+            class="input"
+            name="capeCounter"
+            type="number"
+            v-model="heroCloned.capeCounter"
+          />
         </div>
         <div class="field">
           <label class="label" for="capeMessage">cape message</label>
           <label class="input" name="capeMessage">
-            {{
-            capeMessage
-            }}
+            {{ capeMessage }}
           </label>
         </div>
       </div>
@@ -60,7 +74,6 @@
   </div>
 </template>
 
-
 <script>
 import { format } from 'date-fns';
 import { displayDateFormat } from '../shared';
@@ -76,7 +89,7 @@ export default {
   data() {
     return {
       capeMessage: '',
-      heroCloned: {...this.hero },
+      heroCloned: { ...this.hero },
     };
   },
   computed: {
@@ -88,11 +101,10 @@ export default {
   },
   methods: {
     cancelHero() {
-      this.$emit("cancel");
+      this.$emit('cancel');
     },
-    
     saveHero() {
-      this.$emit("save", this.heroCloned);
+      this.$emit('save', this.heroCloned);
     },
     handleTheCapes(newValue) {
       const value = parseInt(newValue || 0, 10);
@@ -117,7 +129,7 @@ export default {
       immediate: true,
       handler(newValue, oldValue) {
         console.log(
-          `CapeCounter watcher evalauted. old=${oldValue}, new=${newValue}`,
+          `CapeCounter watcher evalauted. old=${oldValue}, new=${newValue}`
         );
         this.handleTheCapes(newValue);
       },

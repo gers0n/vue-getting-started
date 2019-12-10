@@ -29,9 +29,9 @@
             </li>
           </ul>
           <!-- <heroes-list> -->
-          <HeroDetails 
-            v-if="selectedHero" 
-            :hero="selectedHero" 
+          <HeroDetails
+            v-if="selectedHero"
+            :hero="selectedHero"
             @save="saveHero"
             @cancel="cancelHero"
           />
@@ -46,9 +46,8 @@
 </template>
 
 <script>
-import { format } from 'date-fns';
 import HeroDetails from '@/components/hero-details';
-import { displayDateFormat, ourHeroes } from '../shared';
+import { ourHeroes } from '../shared';
 
 export default {
   name: 'Heroes',
@@ -65,9 +64,7 @@ export default {
   created() {
     this.loadHeroes();
   },
-  computed: {
-    
-  },
+  computed: {},
   methods: {
     async getHeroes() {
       return new Promise(resolve => {
@@ -80,7 +77,6 @@ export default {
     },
     saveHero(hero) {
       const index = this.heroes.findIndex(h => h.id === hero.id);
-      
       this.heroes.splice(index, 1, hero);
       this.heroes = [...this.heroes];
       this.hero = undefined;
