@@ -9,33 +9,33 @@
           <label class="label" for="id">id</label>
           <label class="input" name="id" readonly>
             {{
-            hero.id
+            heroCloned.id
             }}
           </label>
         </div>
         <div class="field">
           <label class="label" for="firstName">first name</label>
-          <input class="input" name="firstName" v-model="hero.firstName" />
+          <input class="input" name="firstName" v-model="heroCloned.firstName" />
         </div>
         <div class="field">
           <label class="label" for="lastName">last name</label>
-          <input class="input" name="lastName" v-model="hero.lastName" />
+          <input class="input" name="lastName" v-model="heroCloned.lastName" />
         </div>
         <div class="field">
           <label class="label" for="description">description</label>
-          <input class="input" name="description" v-model="hero.description" />
+          <input class="input" name="description" v-model="heroCloned.description" />
         </div>
         <div class="field">
           <label class="label" for="originDate">origin date</label>
-          <input type="date" class="input" id="originDate" v-model="hero.originDate" />
+          <input type="date" class="input" id="originDate" v-model="heroCloned.originDate" />
           <p class="comment">
-            My origin story began on 
-            {{ hero.originDate | shortDate }}
+            My origin story began on
+            {{ heroCloned.originDate | shortDate }}
           </p>
         </div>
         <div class="field">
           <label class="label" for="capeCounter">cape counter</label>
-          <input class="input" name="capeCounter" type="number" v-model="hero.capeCounter" />
+          <input class="input" name="capeCounter" type="number" v-model="heroCloned.capeCounter" />
         </div>
         <div class="field">
           <label class="label" for="capeMessage">cape message</label>
@@ -76,27 +76,26 @@ export default {
   data() {
     return {
       capeMessage: '',
-    }
+      heroCloned: {...this.hero },
+    };
   },
   computed: {
     fullName() {
-      return this.selectedHero
-        ? `${this.selectedHero.firstName} ${this.selectedHero.lastName}`
+      return this.heroCloned
+        ? `${this.heroCloned.firstName} ${this.heroCloned.lastName}`
         : '';
     },
   },
   methods: {
     cancelHero() {
-      this.hero = undefined;
+      this.$emit("cancel");
     },
+    
     saveHero() {
-      const index = this.heroes.findIndex(h => h.id === this.hero.id);
-      this.heroes.splice(index, 1, this.hero);
-      this.heroes = [...this.heroes];
-      this.hero = undefined;
+      this.$emit("save", this.heroCloned);
     },
     handleTheCapes(newValue) {
-      const value = parseInt(newValue, 10);
+      const value = parseInt(newValue || 0, 10);
       switch (value) {
         case 0:
           this.capeMessage = 'Where is my cape?';
@@ -118,7 +117,7 @@ export default {
       immediate: true,
       handler(newValue, oldValue) {
         console.log(
-          `CapeCounter watcher evalauted. old=${oldValue}, new=${newValue}`
+          `CapeCounter watcher evalauted. old=${oldValue}, new=${newValue}`,
         );
         this.handleTheCapes(newValue);
       },
