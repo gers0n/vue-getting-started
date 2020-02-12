@@ -80,7 +80,7 @@ export default {
     await this.loadHeroes();
   },
   methods: {
-    ...mapActions(['getHeroes']),
+    ...mapActions({ getHeroes: 'getHeroesAction' }),
     askToDelete(hero) {
       this.heroToDelete = hero;
       this.showModal = true;
