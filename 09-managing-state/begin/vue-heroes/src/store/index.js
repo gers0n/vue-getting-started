@@ -22,7 +22,7 @@ const actions = {
       firstName: 'Hero',
       lastName: 'Smith',
       description: 'hello',
-      fullName: 'Hero Smith'
+      fullName: 'Hero Smith',
     });
     commit(GET_HEROES, heroes);
   },
@@ -32,6 +32,7 @@ const getters = {
 };
 
 export default new Vuex.Store({
+  strict: true,
   state,
   mutations,
   actions,
