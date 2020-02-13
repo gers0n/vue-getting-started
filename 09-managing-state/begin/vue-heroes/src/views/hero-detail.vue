@@ -49,8 +49,7 @@
 </template>
 
 <script>
-import { dataService } from '../shared';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { cloneDeep } from 'lodash';
 
 export default {
@@ -75,7 +74,6 @@ export default {
         description: '',
       };
     } else {
-      // this.hero = await dataService.getHero(this.id);
       this.hero = cloneDeep(this.getHeroById(this.id));
     }
   },
@@ -89,13 +87,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['updateHeroAction', 'addHeroAction']),
     cancelHero() {
       this.$router.push({ name: 'heroes' });
     },
     async saveHero() {
       this.hero.id
-        ? await dataService.updateHero(this.hero)
-        : await dataService.addHero(this.hero);
+        ? await this.updateHeroAction(this.hero)
+        : await this.addHeroAction(this.hero);
       this.$router.push({ name: 'heroes' });
     },
   },

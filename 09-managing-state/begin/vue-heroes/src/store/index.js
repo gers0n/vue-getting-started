@@ -45,9 +45,13 @@ const actions = {
     let addedHero = await dataService.addHero(hero);
     commit(ADD_HERO, addedHero);
   },
-  async DELETE_HERO({ commit }, hero) {
+  async deleteHeroAction({ commit }, hero) {
     let heroId = await dataService.deleteHero(hero);
     commit(DELETE_HERO, heroId);
+  },
+  async updateHeroAction({ commit }, hero) {
+    const h = await dataService.updateHero(hero);
+    commit(UPDATE_HERO, h);
   },
 };
 const getters = {
